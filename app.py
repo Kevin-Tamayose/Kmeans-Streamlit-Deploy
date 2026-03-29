@@ -33,3 +33,13 @@ if up_file is not None:
                     - **Grupo 1** está muito associado a esportes, especialmente futebol americano, basquete e atividades culturais como banda e rock.
                     - **Grupo 2** é mais equilibrado, com interesses em música, dança, e moda.
                 """)
+
+    df = pd.read_csv(up_file)
+    cluster = processar_prever(df)
+    df.insert(0, 'grupos', cluster)
+    
+    st.write('Visualização dos resultados (10 primeiros registros):')
+    st.write(df.head(10))
+    
+    csv = df.to_csv(index=False)
+    st.download_button(label='Baixar resultados completos', data = csv, file_name = 'Grupos_interesse.csv', mime='text/csv')
